@@ -8,14 +8,10 @@ $conn = getDB();
 
 if (isset($_GET['id'])) {
 
-    $article = getArticle($conn, $_GET['id']);
+    $article = getArticle($conn, $_GET['id'], 'id');
 
     if ($article) {
         $id = $article['id'];
-        $title = $article['title'];
-        $content = $article['content'];
-        $published_at = $article['published_at'];
-
     } else {
         die("article not found");
     }
@@ -44,5 +40,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
   }
 }
+?>
+
+<?php require 'includes/header.php'; ?>
+
+<h2>Delete Article</h2>
+
+
+<form method="post">
+  <p>Are you sure you want to delete this article?</p>
+  <button>Delete</button>
+  <a href="/Demo/article.php?id=<?= $article['id']; ?>">Cancel</a>
+</form>
+
+<?php require 'includes/footer.php'; ?>
 
 ?>
