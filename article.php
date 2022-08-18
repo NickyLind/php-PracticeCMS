@@ -16,18 +16,18 @@ if (isset($_GET['id'])) {
 }
 
 ?>
-<!-- Require all denied -->
 
 <?php require 'includes/header.php' ?>
       <?php if ($article === null):  ?>
         <p>Article Not found.</p>
       <?php else: ?>
-      <ul>
+
             <article>
               <h2><?= htmlspecialchars($article['title']); ?></h2>
               <p><?= htmlspecialchars($article['content']); ?></p>
             </article>
-      </ul>
+
+            <a href="edit-article.php?id=<?= $article['id']; ?>">Edit</a>
       <?php endif ?>
 
 <?php require 'includes/footer.php' ?>
