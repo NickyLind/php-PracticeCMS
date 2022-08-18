@@ -2,6 +2,7 @@
 
 require 'includes/database.php';
 require 'includes/article.php';
+require 'includes/url.php';
 
 $title = '';
 $content = '';
@@ -39,14 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $id = mysqli_insert_id($conn);
         // echo "Inserted record with ID: $id";
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
-          $protocol = 'https';
-        } else {
-          $protocol = 'http';
-        }
-
-        header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/demo/article.php?id=$id");
-        exit;
+        redirect("/demo/article.php?id=$id");
 
       } else {
 
