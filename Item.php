@@ -6,6 +6,6 @@ class Item
 
   public function getListingDescription()
   {
-    return $this->name;
+    return "Item: " .  $this->name;
   }
 }
