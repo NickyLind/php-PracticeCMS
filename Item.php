@@ -2,23 +2,25 @@
 
 class Item
 {
-  // public keyword is used to set the visibility of the property
   private $name;
   private $description = "This is the default";
-
-  function __construct($name, $description)
-  {
-    $this->name = $name;
-    $this->description = $description;
-  }
   
-  public function sayHello() {
-    echo "Hello";
+  public function getName() {
+    return $this->name;
   }
 
-  private function getName()
+  public function setName($name) {
+    $this->name = $name;
+  }
+
+  public function getDescription()
   {
-    return $this->name;
+    return $this->description;
+  }
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
   }
 }
 
