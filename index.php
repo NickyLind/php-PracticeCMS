@@ -5,7 +5,6 @@ require 'includes/auth.php';
 
 session_start();
 
-// create a new instance of out Database class and call the getConn() method we created on it
 $db = new Database();
 $conn = $db->getConn();
 
@@ -13,16 +12,10 @@ $sql = "SELECT *
         FROM article
         ORDER BY published_at";
 
-// we can use the query method on PDOs and pass in the sql
 $results = $conn->query($sql);
 
-if (!$results) {
-  // we can display an array of error information by calling the errorInfo() method on the database connection
-  $conn->errorInfo();
-} else {
-  // the PDO method that returns our result set is fetchAll(). We pass in the FETCH_ASSOC constant to get our data back in an associative array
-  $articles = $results->fetchAll(PDO::FETCH_ASSOC);
-}
+$articles = $results->fetchAll(PDO::FETCH_ASSOC);
+
 
 ?>
 <?php require 'includes/header.php' ?>
