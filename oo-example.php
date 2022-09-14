@@ -1,16 +1,17 @@
 <?php 
 
 require 'Item.php';
+require 'Book.php';
 
 $myItem = new Item();
+$myItem->name = "TV";
 
-$count = 0;
+echo $myItem->getListingDescription();
 
-$count++;
+echo "</br>";
 
-define('MAXIMUM', 100);
+$myBook = new Book();
 
-define("COLOUR", 'RED');
+$myBook->name = "Interview with a Vampire";
 
-// we access class constants the same way we access static values
-echo Item::MAX_LENGTH;
+echo $myBook->getListingDescription();
