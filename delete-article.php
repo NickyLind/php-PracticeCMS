@@ -1,18 +1,17 @@
 <?php
 
-require 'includes/database.php';
-require 'includes/article.php';
+require 'classes/Database.php';
+require 'classes/Article.php';
 require 'includes/url.php';
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConn();
 
 if (isset($_GET['id'])) {
 
-    $article = getArticle($conn, $_GET['id'], 'id');
+    $article = Article::getByID($conn, $_GET['id']);
 
-    if ($article) {
-        $id = $article['id'];
-    } else {
+    if (!$article) {
         die("article not found");
     }
 
@@ -22,22 +21,8 @@ if (isset($_GET['id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-  $sql = "DELETE FROM article
-          WHERE id = ?";
-
-  $stmt = mysqli_prepare($conn, $sql);
-
-  if ($stmt === false) {
-    echo mysqli_error($conn);
-  } else {
-    mysqli_stmt_bind_param($stmt, 'i', $id);
-
-    if (mysqli_stmt_execute($stmt)) {
-      // Redirect to index or page saying article was deleted
-      redirect('/Demo/index.php');
-    } else {
-      echo mysqli_stmt_error($stmt);
-    }
+  if($article->delete($conn)) {
+    redirect('/Demo/index.php');
   }
 }
 ?>
@@ -50,9 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <form method="post">
   <p>Are you sure you want to delete this article?</p>
   <button>Delete</button>
-  <a href="/Demo/article.php?id=<?= $article['id']; ?>">Cancel</a>
+  <a href="/Demo/article.php?id=<?= $article->id; ?>">Cancel</a>
 </form>
 
 <?php require 'includes/footer.php'; ?>
-
-?>
