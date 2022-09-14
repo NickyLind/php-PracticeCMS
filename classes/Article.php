@@ -168,4 +168,39 @@ class Article
 
     return $stmt->execute();
   }
+
+    /**
+   * Insert a new article with its current property values
+   * 
+   * @param object $conn Connection to the database
+   * 
+   * @return boolean True if insert was successfull, false otherwise
+   */
+  public function create($conn)
+  {
+
+    if($this->validate()) {
+
+      $sql = "INSERT INTO article (title, content, published_at)
+              VALUES (:title, :content, :published_at)";
+  
+      $stmt = $conn->prepare($sql);
+  
+      $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);
+      $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
+  
+      if ($this->published_at == '') {
+        $stmt->bindValue(":published_at", null, PDO::PARAM_NULL);
+      } else {
+        $stmt->bindValue(":published_at", $this->published_at, PDO::PARAM_STR);
+      }
+  
+      if ($stmt->execute()) {
+        $this->id = $conn->lastInsertId();
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
 }
