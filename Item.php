@@ -3,8 +3,8 @@
 class Item
 {
   // public keyword is used to set the visibility of the property
-  public $name;
-  public $description = "This is the default";
+  private $name;
+  private $description = "This is the default";
 
   function __construct($name, $description)
   {
@@ -12,11 +12,11 @@ class Item
     $this->description = $description;
   }
   
-  function sayHello() {
+  public function sayHello() {
     echo "Hello";
   }
 
-  function getName()
+  private function getName()
   {
     return $this->name;
   }
