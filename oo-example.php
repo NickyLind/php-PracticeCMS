@@ -3,13 +3,12 @@
 require 'Item.php';
 
 $myItem = new Item();
+$myItem->name = "Nickless Dickerson";
 
-$myItem->name = "Example";
-$myItem->description = "A new description";
-$myItem->price = 2.99;
+echo $myItem->getName();
 
-var_dump($myItem);
+$myItem2 = new Item();
 
-// $myItem2 = new Item();
+$myItem2->name = "PoopyPants";
 
-// var_dump($myItem2);
+echo $myItem2->getName();
