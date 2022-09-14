@@ -2,14 +2,17 @@
 
 require 'Item.php';
 
+// to refer to a static property outside of an instantiation of the class we need to use the class name followed by 2 colons
+Item::showCount();
+
 $myItem = new Item("Fig ol Bitties", "Toight");
 
-var_dump($myItem);
+$myItem->name = "A new name";
 
-// echo $myItem->getName();
+Item::showCount();
 
-// $myItem2 = new Item();
+echo $myItem->name;
 
-// $myItem2->name = "PoopyPants";
+$myItem2 = new Item("test", "testing");
 
-// echo $myItem2->getName();
+Item::showCount();

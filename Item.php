@@ -2,25 +2,33 @@
 
 class Item
 {
-  private $name;
-  private $description = "This is the default";
+  public $name;
+  public $description = "This is the default";
+
+  // the static access modifier makes it so a property can be accessed without instantiating the class
+  public static $count = 0;
+
+  function __construct($name, $description)
+  {
+    $this->name = $name;
+    $this->description = $description;
+
+    // need to use 'static::' before the static property to access it
+    static::$count++;
+  }
   
-  public function getName() {
+  public function sayHello() {
+    echo "Hello";
+  }
+
+  public function getName()
+  {
     return $this->name;
   }
 
-  public function setName($name) {
-    $this->name = $name;
-  }
-
-  public function getDescription()
+  public static function showCount()
   {
-    return $this->description;
-  }
-
-  public function setDescription($description)
-  {
-    $this->description = $description;
+    echo static::$count;
   }
 }
 
