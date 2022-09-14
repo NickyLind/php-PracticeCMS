@@ -2,13 +2,14 @@
 
 require 'Item.php';
 
-$myItem = new Item();
-$myItem->name = "Nickless Dickerson";
+$myItem = new Item("Fig ol Bitties", "Toight");
 
-echo $myItem->getName();
+var_dump($myItem);
 
-$myItem2 = new Item();
+// echo $myItem->getName();
 
-$myItem2->name = "PoopyPants";
+// $myItem2 = new Item();
 
-echo $myItem2->getName();
+// $myItem2->name = "PoopyPants";
+
+// echo $myItem2->getName();
