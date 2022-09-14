@@ -2,17 +2,15 @@
 
 require 'Item.php';
 
-// to refer to a static property outside of an instantiation of the class we need to use the class name followed by 2 colons
-Item::showCount();
+$myItem = new Item();
 
-$myItem = new Item("Fig ol Bitties", "Toight");
+$count = 0;
 
-$myItem->name = "A new name";
+$count++;
 
-Item::showCount();
+define('MAXIMUM', 100);
 
-echo $myItem->name;
+define("COLOUR", 'RED');
 
-$myItem2 = new Item("test", "testing");
-
-Item::showCount();
+// we access class constants the same way we access static values
+echo Item::MAX_LENGTH;
