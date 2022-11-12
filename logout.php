@@ -1,7 +1,6 @@
 <?php 
 
-require 'classes/Url.php';
-session_start();
+require 'includes/init.php';
 
 // clear session global variable
 $_SESSION = array();
