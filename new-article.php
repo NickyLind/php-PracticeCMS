@@ -3,7 +3,7 @@
 require 'classes/Database.php';
 require 'classes/Article.php';
 require 'classes/Auth.php';
-require 'includes/url.php';
+require 'classes/Url.php';
 
 session_start();
 
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $article->published_at = $_POST['published_at'];
 
   if ($article->create($conn)) {
-      redirect("/demo/article.php?id={$article->id}");
+      Url::redirect("/demo/article.php?id={$article->id}");
   }
 }
 

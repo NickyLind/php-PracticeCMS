@@ -1,6 +1,6 @@
 <?php 
 
-require 'includes/url.php';
+require 'classes/Url.php';
 session_start();
 
 // clear session global variable
@@ -16,6 +16,6 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-redirect('/Demo/index.php');
+Url::redirect('/Demo/index.php');
 
 ?>
