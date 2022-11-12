@@ -109,6 +109,18 @@ class Article
   }
 
   /**
+   * Get a count of the total number or records
+   * 
+   * @param object $conn Connected to the database
+   * 
+   * @return integer The total number of records
+   */
+  public static function getTotal($conn)
+  {
+    return $conn->query('SELECT COUNT(*) FROM article')->fetchColumn();
+  }
+
+  /**
    * Update the article with its current property values
    * 
    * @param object $conn Connection to the database
