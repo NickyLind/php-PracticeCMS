@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     Auth::login();
 
-    Url::redirect('/Demo/index.php');
+    Url::redirect('/CMS/index.php');
     
   } else {
     $error = "login incorrect";

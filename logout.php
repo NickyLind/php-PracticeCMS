@@ -4,6 +4,6 @@ require 'includes/init.php';
 
 Auth::logout();
 
-Url::redirect('/Demo/index.php');
+Url::redirect('/CMS/');
 
 ?>

@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $article->published_at = $_POST['published_at'];
 
   if ($article->create($conn)) {
-      Url::redirect("/demo/article.php?id={$article->id}");
+      Url::redirect("/CMS/article.php?id={$article->id}");
   }
 }
 
