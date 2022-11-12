@@ -31,6 +31,13 @@ class Paginator
   {
     $this->limit = $records_per_page;
 
+    $page = filter_var($page, FILTER_VALIDATE_INT, [
+      'options' => [
+        'default' => 1,
+        'min_range' => 1
+      ]
+    ]);
+
     $this->offset = $records_per_page * ($page - 1);
   }
 }

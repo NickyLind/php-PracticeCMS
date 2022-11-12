@@ -4,7 +4,8 @@ require 'includes/init.php';
 
 $conn = require 'includes/db.php';
 
-$paginator = new Paginator(3, 3);
+$paginator = new Paginator($_GET['page'] ?? 1, 3);
+//? null coalescing operator
 
 $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
 
