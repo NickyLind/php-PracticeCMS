@@ -2,6 +2,8 @@
 
 require '../includes/init.php';
 
+Auth::requireLogin();
+
 $conn = require '../includes/db.php';
 
 $articles = Article::getAll($conn);
@@ -21,19 +23,25 @@ $articles = Article::getAll($conn);
 
 <?php endif; ?>
 
+<h2>Admin</h2>
+
       <?php if (empty($articles)):  ?>
         <p>No articles found</p>
       <?php else: ?>
-      <ul>
-        <?php  foreach ($articles as $article): ?>
-          <li>
-            <article>
-              <h2><a href="article.php?id=<?= $article['id'] ?>"><?=  htmlspecialchars($article['title']); ?></a></h2>
-              <p><?= htmlspecialchars($article['content']); ?></p>
-            </article>
-          </li>
-          <?php endforeach; ?>
-      </ul>
+      <table>
+        <thead>
+          <th>Title</th>
+        </thead>
+        <tbody>
+          <?php  foreach ($articles as $article): ?>
+            <tr>
+              <td>
+                <a href="article.php?id=<?= $article['id'] ?>"><?=  htmlspecialchars($article['title']); ?></a>
+              </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+      </table>
       <?php endif ?>
 
 <?php require '../includes/footer.php' ?>
