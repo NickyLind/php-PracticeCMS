@@ -2,12 +2,12 @@
 
 require 'classes/Database.php';
 require 'classes/Article.php';
+require 'classes/Auth.php';
 require 'includes/url.php';
-require 'includes/auth.php';
 
 session_start();
 
-if (!isLoggedIn()) {
+if (!Auth::isLoggedIn()) {
   die('unauthorized');
 }
 
