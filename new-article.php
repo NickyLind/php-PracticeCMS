@@ -2,9 +2,7 @@
 
 require 'includes/init.php';
 
-if (!Auth::isLoggedIn()) {
-  die('unauthorized');
-}
+Auth::requireLogin();
 
 $article = new Article();
 
