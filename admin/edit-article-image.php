@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(empty($_FILES)) {
             throw new Exception('Invalid Upload');
         }
-
+        
         switch ($_FILES['file']['error']) {
             case 0:
                 break;
