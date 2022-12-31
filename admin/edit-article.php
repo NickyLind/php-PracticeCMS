@@ -18,6 +18,14 @@ if (isset($_GET['id'])) {
     die("id not supplied, article not found");
 }
 
+echo '<pre>';
+$category_ids = array_column($article->getCategories($conn), 'id');
+echo '</pre>';
+$categories = Category::getAll($conn);
+echo '<pre>';
+print_r($categories);
+echo '</pre>';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $article->title = $_POST['title'];

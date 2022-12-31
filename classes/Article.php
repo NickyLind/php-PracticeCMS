@@ -154,6 +154,29 @@ class Article
   }
 
   /**
+   * Get the article's categories
+   * 
+   * @param object $conn Connection to the databse
+   * 
+   * @return array The category data
+   */
+  public function getCategories($conn)
+  {
+    $sql = "SELECT category.*
+            FROM category
+            JOIN article_category
+            ON category.id = article_category.category_id
+            WHERE article_id = :id";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  /**
    * Update the article with its current property values
    * 
    * @param object $conn Connection to the database
