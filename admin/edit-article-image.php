@@ -27,11 +27,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo '</pre>';
     var_dump($_FILES);
 
-    if(empty($_FILES)) {
-        throw new Exception('Invalid Upload');
-    }
-
+    
     try {    
+        if(empty($_FILES)) {
+            throw new Exception('Invalid Upload');
+        }
+
         switch ($_FILES['file']['error']) {
             case 0:
                 break;
@@ -43,7 +44,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             default:
                 throw new Exception('An error occured');
                 break;
-        }   
+        }
+
+        // restrict the file size
+        if($_FILES['file']['size'] > 1000000000) {
+            throw new Exception('File upload size has been exceeded');
+        }
+        
+        
+        // opens the file info, checks the MIME type based on the tmp_name, then checks it against our allowed MIME types
+        $mime_types = ['image/gif', 'image/png', 'image/jpeg'];
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_file($finfo, $_FILES['file']['tmp_name']);
+
+        if(!in_array($mime_type, $mime_types)) {
+            throw new Exception('File type is not supported');
+        }
+
+        // Move file into temp folder
+        $destination = "../uploads/" . $_FILES['file']['name'];
+
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
+            echo '<pre>';
+            print_r("FILE MOVED");
+            echo '</pre>';
+        } else {
+            throw new Exception('File couldn\'t be moved into temp folder');
+        }
+
     } catch (Exception $e) {
         echo '<pre>';
         print_r($e->getMessage());
