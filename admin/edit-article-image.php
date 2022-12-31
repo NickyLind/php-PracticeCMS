@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // send filename to DB and redirect back to article index
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
 
-            $previous_image = $atricle->image_file;
+            $previous_image = $article->image_file;
 
             if ($article->setImageFile($conn, $filename)) {
 
