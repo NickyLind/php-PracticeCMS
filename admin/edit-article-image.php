@@ -74,6 +74,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Move file into temp folder
         $destination = "../uploads/$filename";
 
+        $i = 1;
+
+        // check for same filename in uploads
+        while (file_exists($destination)) {
+            $filename = $base . "-$i" . "." . $pathinfo['extension'];
+            $destination = "../uploads/$filename";
+            $i++;
+        }
+
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
             echo '<pre>';
             print_r("FILE MOVED");
