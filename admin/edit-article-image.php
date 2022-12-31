@@ -1,5 +1,8 @@
 <?php
 
+// phpinfo();
+//? shows alls erver data when this page is loaded
+
 require '../includes/init.php';
 
 Auth::requireLogin();
@@ -24,10 +27,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo '</pre>';
     var_dump($_FILES);
 
+    if(empty($_FILES)) {
+        throw new Exception('Invalid Upload');
+    }
+
     try {    
         switch ($_FILES['file']['error']) {
             case 0:
                 break;
+            case 1:
+                throw new Exception('File upload size has been exceeded');
             case 4:
                 throw new Exception('No file uploaded');
                 break;
