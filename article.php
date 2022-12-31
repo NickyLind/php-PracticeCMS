@@ -21,6 +21,11 @@ if (isset($_GET['id'])) {
 
         <article>
           <h2><?= htmlspecialchars($article->title); ?></h2>
+
+          <?php if ($article->image_file): ?>
+            <img src="/CMS/uploads/<?= $article->image_file; ?>" alt="" style="max-width: 768px">
+          <?php endif; ?>
+
           <p><?= htmlspecialchars($article->content); ?></p>
         </article>
         

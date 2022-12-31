@@ -87,9 +87,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // send filename to DB and redirect back to article index
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
-            $article->setImageFile($conn, $filename);
 
-            Url::redirect("/CMS/admin/article.php?id={$article->id}");
+            $previous_image = $atricle->image_file;
+
+            if ($article->setImageFile($conn, $filename)) {
+
+                if ($previous_image) {
+                    unlink("../uploads/$previous_image");
+                }
+                Url::redirect("/CMS/admin/edit-article-image.php?id={$article->id}");
+            }
+
 
         } else {
             throw new Exception('File couldn\'t be moved into temp folder');
@@ -104,6 +112,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php require '../includes/header.php'; ?>
 
 <h2>Edit article image</h2>
+
+    <?php if ($article->image_file): ?>
+        <img src="/CMS/uploads/<?= $article->image_file; ?>" alt="" style="max-width: 768px">
+    <?php endif; ?>
 
 <form method="post" enctype="multipart/form-data">
 
