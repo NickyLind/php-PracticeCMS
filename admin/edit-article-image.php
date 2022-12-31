@@ -68,6 +68,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $base = $pathinfo['filename'];
         
         $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
+
+        $base = mb_substr($base, 0, 200);
         
         $filename = $base . "." . $pathinfo['extension'];
 
@@ -83,18 +85,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $i++;
         }
 
+        // send filename to DB and redirect back to article index
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
-            echo '<pre>';
-            print_r("FILE MOVED");
-            echo '</pre>';
+            $article->setImageFile($conn, $filename);
+
+            Url::redirect("/CMS/admin/article.php?id={$article->id}");
+
         } else {
             throw new Exception('File couldn\'t be moved into temp folder');
         }
 
     } catch (Exception $e) {
-        echo '<pre>';
-        print_r($e->getMessage());
-        echo '</pre>';
+        echo $e->getMessage();
     }
 }
 

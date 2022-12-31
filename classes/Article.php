@@ -32,6 +32,12 @@ class Article
   public $published_at;
 
   /**
+   * Path to the image
+   * @var string
+   */
+  public $image_file;
+
+  /**
    * Validation errors
    * @var array
    */
@@ -241,5 +247,27 @@ class Article
     } else {
       return false;
     }
+  }
+
+  /**
+   * Update the iamge file property
+   * 
+   * @param object $conn Connection to the database
+   * @param string $filename The filename of the image file
+   * 
+   * @return boolean True if it was successful, false otherwise
+   */
+  public function setImageFile($conn, $filename)
+  {
+    $sql = "UPDATE article
+    SET image_file = :image_file
+    WHERE id = :id";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+    $stmt->bindValue(':image_file', $filename, PDO::PARAM_STR);
+
+    return $stmt->execute();
   }
 }
