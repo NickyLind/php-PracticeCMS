@@ -61,8 +61,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception('File type is not supported');
         }
 
+        
+        // sanitize name of file
+        $pathinfo = pathinfo($_FILES["file"]["name"]);
+        
+        $base = $pathinfo['filename'];
+        
+        $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
+        
+        $filename = $base . "." . $pathinfo['extension'];
+
         // Move file into temp folder
-        $destination = "../uploads/" . $_FILES['file']['name'];
+        $destination = "../uploads/$filename";
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
             echo '<pre>';
