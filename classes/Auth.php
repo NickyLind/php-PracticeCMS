@@ -32,7 +32,7 @@ class Auth
    * Log in using the session
    * 
    * @return void
-   * ?local is NickyLind - secret?
+   * ?local is NickyLind - secret
    */
   public static function login()
   {

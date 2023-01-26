@@ -18,13 +18,8 @@ if (isset($_GET['id'])) {
     die("id not supplied, article not found");
 }
 
-echo '<pre>';
 $category_ids = array_column($article->getCategories($conn), 'id');
-echo '</pre>';
 $categories = Category::getAll($conn);
-echo '<pre>';
-print_r($categories);
-echo '</pre>';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -32,8 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->content = $_POST['content'];
     $article->published_at = $_POST['published_at'];
 
+    $category_ids = $_POST['category'] ?? [];
 
     if ($article->update($conn)) {
+        $article->setCategories($conn, $category_ids);
+
         Url::redirect("/CMS/admin/article.php?id={$article->id}");
     }
 }
