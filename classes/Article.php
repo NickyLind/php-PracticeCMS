@@ -325,6 +325,20 @@ class Article
       }
       $stmt->execute();
     }
+    $sql = "DELETE FROM article_category WHERE article_id = {$this->id}";
+    if ($ids) {
+      // create an array of '?' placeholders for the amount of ids in the $ids array
+      $placeholders = array_fill(0, count($ids), '?');
+
+      // create sql statment where all the '?'s are a concatenated string as required by 'NOT IN'
+      $sql .= " AND category_id NOT IN (" . implode(", ", $placeholders) . ")";
+    }
+    $stmt = $conn->prepare($sql);
+    foreach ($ids as $i => $id) {
+      // index for PARAM_INT starts at 1 not 0
+      $stmt->bindValue($i + 1, $id, PDO::PARAM_INT);
+    }
+    $stmt->execute();
   }
 
   /**
