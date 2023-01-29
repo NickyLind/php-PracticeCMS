@@ -39,7 +39,7 @@ if (isset($_GET['id'])) {
         </article>
         
         <a href="edit-article.php?id=<?= $article[0]['id']; ?>">Edit</a>
-        <a href="delete-article.php?id=<?= $article[0]['id']; ?>">Delete</a>
+        <a class="delete-article" href="delete-article.php?id=<?= $article[0]['id']; ?>">Delete</a>
         <a href="edit-article-image.php?id=<?= $article[0]['id']; ?>">Edit Image</a>
         
         <?php else: ?>
