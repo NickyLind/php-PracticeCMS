@@ -4,7 +4,7 @@
   <?php  endforeach;?>
 <?php endif; ?>
 
-<form action="" method="post">
+<form action="" method="post" id="formArticle">
 
   <div>
     <label for="title">Title</label>
