@@ -4,10 +4,10 @@ require 'includes/init.php';
 
 $conn = require 'includes/db.php';
 
-$paginator = new Paginator($_GET['page'] ?? 1, 4, Article::getTotal($conn));
+$paginator = new Paginator($_GET['page'] ?? 1, 4, Article::getTotal($conn, true));
 //? null coalescing operator
 
-$articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
+$articles = Article::getPage($conn, $paginator->limit, $paginator->offset, true);
 
 ?>
 <?php require 'includes/header.php' ?>
