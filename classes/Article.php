@@ -147,8 +147,8 @@ class Article
   public static function getTotal($conn, $only_published = false)
   {
     $condition = $only_published ? " WHERE published_at IS NOT NULL" : "";
-
     return $conn->query("SELECT COUNT(*) FROM article$condition")->fetchColumn();
+
   }
 
   /**
@@ -389,5 +389,22 @@ class Article
     $stmt->bindValue(':image_file', $filename, $filename == null ? PDO::PARAM_NULL : PDO::PARAM_STR);
 
     return $stmt->execute();
+  }
+
+  public function publish($conn)
+  {
+    $sql = "UPDATE article
+            SET published_at = :published_at
+            WHERE id = :id";
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+    $published_at = date("Y-m-d H:i:s");
+    $stmt->bindValue(":published_at", $published_at, PDO::PARAM_STR);
+
+    if ($stmt->execute()) {
+      return $published_at;
+    }
   }
 }
