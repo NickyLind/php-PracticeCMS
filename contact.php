@@ -1,10 +1,16 @@
 <?php require 'includes/init.php' ?>
-
 <?php 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/PHPMailer-master/src/Exception.php';
+require 'vendor/PHPMailer-master/src/PHPMailer.php';
+require 'vendor/PHPMailer-master/src/SMTP.php';
 
 $email = '';
 $subject = '';
 $message = '';
+$sent = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST['email'];
@@ -24,7 +30,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   if (empty($errors)) {
-    
+    $mail = new PHPMailer(true);
+
+    try {
+      
+      $mail->isSMTP();
+      $mail->Host = SMTP_HOST;
+      $mail->SMTPAuth = true;
+      $mail->Username = SMTP_USER;
+      $mail->Password = SMTP_PASS;
+      $mail->SMTPSecure = 'tls';
+      $mail->Port = 587;
+
+      $mail->setFrom('sender@example.com');
+      $mail->addAddress('recipient@example.com');
+      $mail->addReplyTo($email);
+      $mail->Subject = $subject;
+      $mail->Body = $message;
+
+      $mail->send();
+
+      $sent = true;
+    } catch (Exception $e) {
+      $errors[] = $mail->ErrorInfo;
+    }
   }
 }
 
@@ -33,7 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php require 'includes/header.php' ?>
 
 <h2>Contact Us</h2>
-
+<?php if ($sent) : ?>
+  <p>Message sent.</p>
+<?php endif; ?>
 <?php if (!empty($errors)): ?>
 
   <ul>
