@@ -17,8 +17,8 @@
   </div>
 
   <div class="form-group">
-    <label for="pbulished_at">Publication date and time</label>
-    <input class="form-control" type="text" name="published_at" id="published_at" value="<?= htmlspecialchars($article->published_at); ?>">
+    <label for="published_at">Publication date and time</label>
+    <input class="form-control" autocomplete="off" name="published_at" id="published_at" value="<?= htmlspecialchars($article->published_at); ?>">
   </div>
 
   <fieldset>

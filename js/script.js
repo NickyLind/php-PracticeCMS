@@ -48,3 +48,7 @@ $('button.publish').each(function(e) {
     });
   });
 });
+
+$('#published_at').datetimepicker({
+  format: 'Y-m-d H:i:s'
+});
