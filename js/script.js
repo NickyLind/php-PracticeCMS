@@ -47,13 +47,15 @@ $('button.publish').each(function(e) {
     var button = $(this);
 
     $.ajax({
-      url: '/admin/publish-article.php',
+      url: '/CMS/admin/publish-article.php',
       type: 'POST',
       data: {
         id: id,
       }
     }).done(function(data) {
       button.parent().html(data);
+    }).fail(function(data) {
+      alert('An Error occurred');
     });
   });
 });

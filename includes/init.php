@@ -21,6 +21,8 @@ function errorHandler($level, $message, $file, $line)
 
 function exceptionHandler($exception)
 {
+  http_response_code(500);
+
   if(SHOW_ERROR_DETAIL) {
     echo sprintf(
       '<h1>An Error Occurred</h1>
