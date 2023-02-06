@@ -1,3 +1,6 @@
+/**
+ * Handle confirmation for deleting an article
+ */
 $("a.delete-article").on('click', function(e) {
   e.preventDefault();
 
@@ -18,6 +21,9 @@ $.validator.addMethod("dateTime", function(value, element) {
   return (value =="" || !isNaN(Date.parse(value)));
 }, "Must be a valid date and time");
 
+/**
+ * Handle Validation of articles (new and editing)
+ */
 $("#formArticle").validate({
   rules: {
     title: {
@@ -32,6 +38,9 @@ $("#formArticle").validate({
   }
 });
 
+/**
+ * handle ajax call for publishing an article using the current time, if the article has not been published
+ */
 $('button.publish').each(function(e) {
   $(this).on('click', function(e) {
     var id = $(this).data("id");
@@ -49,6 +58,27 @@ $('button.publish').each(function(e) {
   });
 });
 
+/**
+ * Adds datetime picker to article published_at field
+ */
 $('#published_at').datetimepicker({
   format: 'Y-m-d H:i:s'
+});
+
+/**
+ * Handle contact form validation
+ */
+$("#formContact").validate({
+  rules: {
+    email : {
+      required: true,
+      email: true
+    },
+    subject: {
+      required: true,
+    },
+    message: {
+      required: true,
+    }
+  }
 });
