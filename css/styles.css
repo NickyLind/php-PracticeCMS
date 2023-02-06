@@ -4,3 +4,6 @@ ul#index {
 ul#index li {
   list-style: none;
 }
+#message {
+  height: 10em;
+}
